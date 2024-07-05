@@ -1,0 +1,48 @@
+body {
+    background-color: lightgray;
+}
+
+#head {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading {
+    font-size: 4rem;
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 5rem);
+    grid-auto-rows: 2.3rem;
+    font-size: 5rem;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.boardTile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: white;
+}
+
+.boardTile:hover {
+    background-color: lightblue;
+}
+
+.last {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    padding: 20px
+}
