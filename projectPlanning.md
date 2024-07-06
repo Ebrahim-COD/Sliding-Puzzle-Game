@@ -1,27 +1,30 @@
-# Bingo Game
+# Sliding Puzzle Game
 
 ### **User Stories:**
 
-* As a player, I would like a randomized grid of numbers on my Bingo card so I can participate in the game.
-* As a player, I want the ability to mark off called numbers on my Bingo card to keep track of my progress.
-* As a player, I aim to be notified when I achieve a winning pattern (such as a line or Colored tile) in order to claim Bingo.
-* As a player, I desire to engage in multiple rounds of Bingo to continue my enjoyment of the game.
+* As a player, I would like to view a grid of tiles that form the puzzle.
+* As a player, I would like the ability to slide tiles into the empty space to change their positions.
+* As a player, I want to know when I have solved the puzzle.
+* As a player, I want to have a way to reset the puzzle to its initial state.
+* As a player, I want to have a timer so I know I have to finish the puzzle within the given time, otherwise, I will lose.
 
 ### **Pseudo-Code:**
 
-1. Start by setting up the bingo game:
-    * Generate a Bingo card with random numbers.
-    * Present the Bingo card to the player.
-2. Begin the game process:
-    * Randomly select a number between 1 and 25.
-    * Check if the number is already called (marked).
-    * If not called, mark the number on the player's Bingo card.
-    * Check if any winning conditions (e.g., a line) are met on the Bingo card.
-3. Check for winning conditions:
-    * Vertical lines.
-    * Horizontal lines.
-    * Diagonal lines.
-4. Declare Bingo if a winning condition is met:
-    * End the current round of the game.
-5. End the game loop:
-    * Ask the player if they want to play another round.
+1. Initialize the puzzle:
+    * Create an array that represents the puzzle board.
+    * Update the grid based on the array.
+2. Shuffle the puzzle
+    * Randomly shuffle the array.
+    * Update the grid with the shuffled array.
+3. Drag events on tiles:
+    * Identify the position of the clicked tile and the position of the empty space.
+    * Check if the tile can move into the empty space.
+4. Move tiles
+    * Swap the clicked/dragged tile with the empty space in the array.
+    * Update array after each valid move.
+5. Check for puzzle completion
+    * Compare the current array with the corrected array.
+    * If they match, display a completed message.
+6. Handle user interactions
+    * Attach event listeners to tiles for click.
+    * Call appropriate functions to handle tile movements and puzzle updates
