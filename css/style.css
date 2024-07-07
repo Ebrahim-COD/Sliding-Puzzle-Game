@@ -1,5 +1,8 @@
 body {
-    background-color: lightgray;
+    background-color: gray;
+    font-family: "Play", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 #head {
@@ -19,8 +22,8 @@ body {
 
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 5rem);
-    grid-auto-rows: 2.3rem;
+    grid-template-columns: repeat(3, 7rem);
+    grid-auto-rows: 7rem;
     font-size: 5rem;
     justify-content: center;
     max-width: 100%;
@@ -44,9 +47,59 @@ body {
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
-    padding: 20px
+
 }
 
 .lastMessage {
     display: none ;
+    font-weight: bold;
 }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+#resetBtn , #timeB {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#timerclock {
+    display: flex;
+    justify-content: center;
+}
+
+#timeM {
+    font-size: 2rem;
+    display: none;
+    font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  body {
+    background-color: lightgray;
+  }
+ .board {
+    display: grid;
+    grid-template-columns: repeat(3, 5rem);
+    grid-auto-rows: 5rem;
+    font-size: 5rem;
+    justify-content: center;
+    max-width: 100%;
+}
+.heading {
+    font-size: 3rem;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+#resetBtn , #timeB {
+    cursor: pointer;
+    font-size: 1rem;
+}
+  }

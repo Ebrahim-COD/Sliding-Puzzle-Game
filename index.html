@@ -6,10 +6,19 @@
     <title>Sliding Puzzle Game</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/app.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div id="head">
         <h1 class="heading" >Sliding Puzzle Game</h1>
+    </div>
+    <div class ="buttons">
+        <button id = "resetBtn">Reset Button</button>
+        <button id = "timeB">Start Time</button>
     </div>
     <div class = "container">
         <div class = "board">
@@ -28,10 +37,8 @@
     <div class="last">
         <p class="lastMessage">MESSAGE HERE!</p>
     </div>
-    <div>
-        <button id = "resetBtn">Reset Button</button>
-        <button id = "timeB">Start Time</button>
+    <div id="timerclock">
+        <p id="timeM">00:00</p>
     </div>
-    <div id="timeM">00:00</div>
 </body>
 </html>

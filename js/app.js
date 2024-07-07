@@ -1,17 +1,9 @@
 /*-------------- Constants -------------*/
-
-
-
-
-
-
-
+let correctedTile = [1,2,3,4,5,6,7,8,""]
+let time
+let puzzleWon = false
 /*---------- Variables (state) ---------*/
 let tile = [1,2,3,4,5,6,7,8,""]
-let correctedTile = [1,2,3,4,5,6,7,8,""]
-
-
-
 
 
 
@@ -23,7 +15,6 @@ const timerBtn = document.querySelector("#timeB")
 const timeMessage = document.querySelector("#timeM")
 
 
-
 /*-------------- Functions -------------*/
 function shuffleNumbers(array) {
 
@@ -33,39 +24,51 @@ function shuffleNumbers(array) {
 shuffleNumbers(tile)    
 
 function handleClick(event) {
-    const clickTile = event.target
-    const clickIndex = [...bdTile].indexOf(clickTile);
-    const emptyIndex = tile.indexOf("")
 
-    if(canMove(clickIndex, emptyIndex)) {
-        swapNumbers(tile , clickIndex, emptyIndex)
+    if(puzzleWon) {
+        return
+    }
+
+    if(timeMessage.textContent.includes("Game Over!")) {
+        return
+    }
+
+    const clickTile = event.target
+    const clickedGrid = [...bdTile].indexOf(clickTile);
+    const emptyGrid = tile.indexOf("")
+
+    if(canMove(clickedGrid, emptyGrid)) {
+        swapNumbers(tile , clickedGrid, emptyGrid)
         updateBoard()
         if(checkforWinner()) {
+            puzzleWon = true
             lastMessage.textContent = "Congratulations! You solved the puzzle!"
+            lastMessage.style.display = "block"
+            clearInterval(time) //stop the timer
         }
     }
 }
 
-function canMove(clickIndex, emptyIndex) {
-    switch (clickIndex) {
+function canMove(clickedGrid, emptyGrid) {
+    switch (clickedGrid) {
       case 0:
-        return emptyIndex === 1 || emptyIndex === 3
+        return emptyGrid === 1 || emptyGrid === 3
       case 1:
-        return emptyIndex === 0 || emptyIndex === 2 || emptyIndex === 4
+        return emptyGrid === 0 || emptyGrid === 4 || emptyGrid === 2
       case 2:
-        return emptyIndex === 1 || emptyIndex === 5
+        return emptyGrid === 1 || emptyGrid === 5
       case 3:
-        return emptyIndex === 0 || emptyIndex === 4 || emptyIndex === 6
+        return emptyGrid === 0 || emptyGrid === 4 || emptyGrid === 6
       case 4:
-        return emptyIndex === 1 || emptyIndex === 3 || emptyIndex === 5 || emptyIndex === 7
+        return emptyGrid === 1 || emptyGrid === 3 || emptyGrid === 5 || emptyGrid === 7
       case 5:
-        return emptyIndex === 2 || emptyIndex === 4 || emptyIndex === 8
+        return emptyGrid === 2 || emptyGrid === 4 || emptyGrid === 8
       case 6:
-        return emptyIndex === 3 || emptyIndex === 7
+        return emptyGrid === 3 || emptyGrid === 7
       case 7:
-        return emptyIndex === 6 || emptyIndex === 4 || emptyIndex === 8
+        return emptyGrid === 6 || emptyGrid === 4 || emptyGrid === 8
       case 8:
-        return emptyIndex === 5 || emptyIndex === 7
+        return emptyGrid === 5 || emptyGrid === 7
     }
     return false
   }
@@ -99,13 +102,17 @@ function resetBtn(){
 }
 
 function timer(){
-    let time
-    let sec = 0
+    let sec = 60
 
     time = setInterval(() => {
-
         timeMessage.innerHTML = '00:'+sec
-        sec ++
+        timeMessage.style.display = "block"
+        sec --
+        if (sec < 0) {
+            clearInterval(time)
+            timeMessage.textContent = "Game Over!"
+            timeMessage.style.display = "block"
+        }
     },1000)
     
 
@@ -119,5 +126,5 @@ bdTile.forEach(key => {
 resetButton.addEventListener('click' , resetBtn)
 timerBtn.addEventListener('click',timer)
 
-shuffleNumbers(tile)
+shuffleNumbers(tile);
 updateBoard()
