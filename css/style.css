@@ -15,6 +15,7 @@ body {
 .heading {
     font-size: 4rem;
 }
+
 .container {
     display: flex;
     justify-content: center;
@@ -39,7 +40,7 @@ body {
     background-color: white;
 }
 
-.boardTile:hover {
+.boardTile:hover  {
     background-color: lightblue;
 }
 
