@@ -1,13 +1,15 @@
 /*-------------- Constants -------------*/
+
 let correctedTile = [1,2,3,4,5,6,7,8,""]  //array if we get this we will win the game
 let time 
 let puzzleWon = false
+
 /*---------- Variables (state) ---------*/
+
 let tile = [1,2,3,4,5,6,7,8,""] // array for our tiles
 
-
-
 /*----- Cached Element References  -----*/
+
 const bdTile = document.querySelectorAll(".boardTile")     // calling all the boardtile tiles
 const lastMessage = document.querySelector(".lastMessage") // message for our win
 const resetButton = document.querySelector("#resetBtn") // calling the reset button
@@ -15,16 +17,31 @@ const timerBtn = document.querySelector("#timeB") // calling the timer button
 const timeMessage = document.querySelector("#timeM") // Timer message
 
 /*-------------- Functions -------------*/
+
 function shuffleNumbers(array) {
 
-    array.sort(() => Math.random() - 0.5) //shuffle the array using sorting 0.5
-    array.forEach(key => {
-      for(let i = 0; i<array.length;i++) {
-        for(let j; j < array.length;j++) {
+  array.sort(() => Math.random() - 0.5) //shuffle the array using sorting 0.
+  if(!solvaBle(array)) {
+    shuffleNumbers(array)
+  }
+}
 
-        }
+function inversionNumber(array) {
+
+  let inversionCount = 0
+  for(let i = 0; i<array.length;i++) {
+    for(let j=i+1; j < array.length;j++) {
+      if (array[i] > array[j] && array[i] != "" && array[j] != "") {
+        inversionCount++
       }
-    })
+    }
+  }
+  return inversionCount
+}
+
+function solvaBle(array) {
+  let inversionCount = inversionNumber(array)
+  return inversionCount % 2 === 0
 }
 
 function updateBoard() {   //
@@ -35,21 +52,21 @@ function updateBoard() {   //
 
 function handleClick(event) {
 
-    if(puzzleWon) {  //If the game is won then stop the game.
-        return
-    }
+  if(puzzleWon) {  //If the game is won then stop the game.
+       return
+  }
 
-    if(timeMessage.textContent.includes("Game Over!")) {  // If the game is over stop the game.
-        return
-    }
+  if(timeMessage.textContent.includes("Game Over!")) {  // If the game is over stop the game.
+       return
+  }
 
-    const clickTile = event.target
-    const clickedGrid = [...bdTile].indexOf(clickTile);  
-    const emptyGrid = tile.indexOf("")
+  const clickTile = event.target
+  const clickedGrid = [...bdTile].indexOf(clickTile);  
+  const emptyGrid = tile.indexOf("")
 
-    if(moveTiles(clickedGrid, emptyGrid)) {
-        swapNumbers(tile , clickedGrid, emptyGrid)
-        updateBoard()
+  if(moveTiles(clickedGrid, emptyGrid)) {
+      swapNumbers(tile , clickedGrid, emptyGrid)
+      updateBoard()
         if(checkforWinner()) {
             puzzleWon = true
             lastMessage.textContent = "Congratulations! You solved the puzzle! 👏"
@@ -102,8 +119,15 @@ function checkforWinner() {
 }
 
 function resetBtn(){
-    window.location.reload()  // reload the page when clicked
-    
+
+    tile = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+    puzzleWon = false;
+    clearInterval(time);
+    timeMessage.textContent = "";
+    lastMessage.style.display = "none";
+
+    shuffleNumbers(tile);  // Reshuffle tiles and update board
+    updateBoard();
 }
 
 function timer(){
@@ -130,6 +154,6 @@ bdTile.forEach(key => {
 resetButton.addEventListener('click' , resetBtn)
 timerBtn.addEventListener('click',timer)
 
-
+shuffleNumbers(tile)
 updateBoard()
 

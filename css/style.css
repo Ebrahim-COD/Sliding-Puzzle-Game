@@ -1,8 +1,9 @@
 body {
-    background-color: gray;
+    background-color: #91988b;
     font-family: "Play", sans-serif;
     font-weight: 700;
     font-style: normal;
+    
 }
 
 #head {
@@ -37,7 +38,7 @@ body {
     border: 1px solid black;
     font-size: 2rem;
     cursor: pointer;
-    background-color: white;
+    background: linear-gradient(to bottom, #c9f5d8, #a3e2bc)
 }
 
 .boardTile:hover  {
@@ -54,6 +55,8 @@ body {
 .lastMessage {
     display: none ;
     font-weight: bold;
+    justify-content: center;
+    align-items: center;
 }
 
 .buttons {
@@ -62,11 +65,14 @@ body {
     padding: 10px;
 }
 
-#resetBtn , #timeB {
+#resetBtn, #timeB {
     cursor: pointer;
     padding: 10px;
     font-size: 1rem;
     font-weight: bold;
+    border: none;
+    background-color: #4CAF50; 
+    color: white;
 }
 
 #timerclock {
@@ -103,4 +109,4 @@ body {
     cursor: pointer;
     font-size: 1rem;
 }
-  }
+}
