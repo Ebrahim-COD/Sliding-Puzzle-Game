@@ -120,11 +120,11 @@ function checkforWinner() {
 
 function resetBtn(){
 
-    tile = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+    tile = [1, 2, 3, 4, 5, 6, 7, 8, ""]
     puzzleWon = false;
     clearInterval(time);
-    timeMessage.textContent = "";
-    lastMessage.style.display = "none";
+    timeMessage.textContent = ""
+    lastMessage.style.display = "none"
 
     shuffleNumbers(tile);  // Reshuffle tiles and update board
     updateBoard();
