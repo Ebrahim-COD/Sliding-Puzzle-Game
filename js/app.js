@@ -1,12 +1,13 @@
 /*-------------- Constants -------------*/
 
 let correctedTile = [1,2,3,4,5,6,7,8,""]  //array if we get this we will win the game
-let time 
-let puzzleWon = false
 
 /*---------- Variables (state) ---------*/
 
 let tile = [1,2,3,4,5,6,7,8,""] // array for our tiles
+let time 
+let puzzleWon = false
+let gameStarted = false
 
 /*----- Cached Element References  -----*/
 
@@ -21,38 +22,53 @@ const timeMessage = document.querySelector("#timeM") // Timer message
 function shuffleNumbers(array) {
 
   array.sort(() => Math.random() - 0.5) //shuffle the array using sorting 0.
-  if(!solvaBle(array)) {
+  if(!solvaBle(array)) {       // if its not solvable shuffle the array again
     shuffleNumbers(array)
   }
 }
 
-function inversionNumber(array) {
+function inversionNumber(array) {        // functions calculate the numbers of inversion in an array(inversion is part of elements)
 
-  let inversionCount = 0
-  for(let i = 0; i<array.length;i++) {
-    for(let j=i+1; j < array.length;j++) {
-      if (array[i] > array[j] && array[i] != "" && array[j] != "") {
-        inversionCount++
+  let inversionCount = 0                    
+  for(let i = 0; i<array.length;i++) {          // loops through each element of the array from start to end.
+    for(let j=i+1; j < array.length;j++) {      // looping elements that come after the current element i 
+      if (array[i] > array[j]                   // Compare the current element with the element J that comes after it
+        && array[i] != ""                       // element i is not empty string
+        && array[j] != "") {                    // element j is not empty string
+        inversionCount++                        // if element i is greater than element j then count it as inversion
       }
     }
   }
-  return inversionCount
+  return inversionCount  //return the total count of inversions found
 }
 
-function solvaBle(array) {
-  let inversionCount = inversionNumber(array)
+function solvaBle(array) {                             
+  let inversionCount = inversionNumber(array)         //Number of the inversion count is even > solvable otherwise odd > not solable
   return inversionCount % 2 === 0
 }
 
+function init() {
+  shuffleNumbers(tile);   
+  render();  
+}
+
 function updateBoard() {   //
-  bdTile.forEach((key, index) => {
-      key.innerHTML = tile[index]
+  bdTile.forEach((key, index) => {    
+      key.innerHTML = tile[index]   // set the tile[value] to the bdTile which is .boardTile
   })
+}
+
+function render() {
+  updateBoard();
+  if (puzzleWon) {
+    lastMessage.textContent = "Congratulations! You solved the puzzle! 👏";
+    lastMessage.style.display = "block";
+  }
 }
 
 function handleClick(event) {
 
-  if(puzzleWon) {  //If the game is won then stop the game.
+  if(puzzleWon) {  //if the game is won then stop the game.
        return
   }
 
@@ -69,14 +85,13 @@ function handleClick(event) {
       updateBoard()
         if(checkforWinner()) {
             puzzleWon = true
-            lastMessage.textContent = "Congratulations! You solved the puzzle! 👏"
-            lastMessage.style.display = "block"
             clearInterval(time) //stop the timer
+            render() //render the win message
         }
     }
 }
 
-function moveTiles(clickedGrid, emptyGrid) {  // Move the clicked tile with the empty tile
+function moveTiles(clickedGrid, emptyGrid) {  // Move the clicked grid to the empty grid
     switch (clickedGrid) {
       case 0:
         return emptyGrid === 1 || emptyGrid === 3  // Possible moves is either index 0 & 3
@@ -85,25 +100,26 @@ function moveTiles(clickedGrid, emptyGrid) {  // Move the clicked tile with the 
       case 2:
         return emptyGrid === 1 || emptyGrid === 5 //Possible moves is either index 1,5
       case 3:
-        return emptyGrid === 0 || emptyGrid === 4 || emptyGrid === 6 //Possible moves is either index 0,4,6
+        return emptyGrid === 0 || emptyGrid === 4 || emptyGrid === 6 
       case 4:
-        return emptyGrid === 1 || emptyGrid === 3 || emptyGrid === 5 || emptyGrid === 7 //Possible moves is either index 1,3,4,7
+        return emptyGrid === 1 || emptyGrid === 3 || emptyGrid === 5 || emptyGrid === 7 
       case 5:
-        return emptyGrid === 2 || emptyGrid === 4 || emptyGrid === 8 //Possible moves is either index 2,4,8
+        return emptyGrid === 2 || emptyGrid === 4 || emptyGrid === 8 
       case 6:
-        return emptyGrid === 3 || emptyGrid === 7 //Possible moves is either index 3,7
+        return emptyGrid === 3 || emptyGrid === 7 
       case 7:
-        return emptyGrid === 6 || emptyGrid === 4 || emptyGrid === 8 //Possible moves is either index 6,4,8
+        return emptyGrid === 6 || emptyGrid === 4 || emptyGrid === 8 
       case 8:
-        return emptyGrid === 5 || emptyGrid === 7 //Possible moves is either index 5,7
+        return emptyGrid === 5 || emptyGrid === 7 
     }
-    return false  // return false as a fallback
-  }
+  return false  // return false as a fallback
+}
+
   
-function swapNumbers(tile, i1, i2) {
-    const swap = tile[i1] // Remember the number at tile position i1
-    tile[i1] = tile[i2]  // Put the number from the tile position i2 to i1
-    tile[i2] = swap // Put the remembered number into the i2
+function swapNumbers(tile, clickedGrid, emptyGrid) {
+    const swap = tile[clickedGrid]      //Remember the number at tile position clickedGrid in the array tile
+    tile[clickedGrid] = tile[emptyGrid] // Replace the number at position clickedGrid with the number position emptyGrid
+    tile[emptyGrid] = swap              // Replace the number at position emptyGrid with the number that was originally at position clickedGrid
 }
 
 function checkforWinner() {
@@ -118,42 +134,49 @@ function checkforWinner() {
     return winner
 }
 
-function resetBtn(){
+function resetBtn(){    
 
     tile = [1, 2, 3, 4, 5, 6, 7, 8, ""]
     puzzleWon = false;
     clearInterval(time);
     timeMessage.textContent = ""
     lastMessage.style.display = "none"
+    timerBtn.disabled = false
 
     shuffleNumbers(tile);  // Reshuffle tiles and update board
-    updateBoard();
+    updateBoard();  //update the board
 }
 
 function timer(){
-    let sec = 60
 
-    time = setInterval(() => {
-        timeMessage.innerHTML = '00:'+sec
-        timeMessage.style.display = "block"
-        sec --
-        if (sec < 0) {
-            clearInterval(time)
-            timeMessage.textContent = "Game Over! 😵‍💫"
-            timeMessage.style.display = "block"
+  shuffleNumbers(tile);
+  updateBoard()
+
+  let sec = 60 
+
+  time = setInterval(() => {   //set up a timer that runs every second
+    timeMessage.innerHTML = '00:'+sec  //update the message to show the second
+    timeMessage.style.display = "block"  
+
+    if (sec === 0) {
+      clearInterval(time) //stop the timer
+      timeMessage.textContent = "Game Over! 😵‍💫"
+      timeMessage.style.display = "block"
+      } else {
+       sec-- //decrease the value  of sec by 1
         }
-    },1000)
+  },1000) // Run the timer function every 1 sec (1000 milliseconds)
+
+  timerBtn.disabled = true; // Disable timer button until reset
 }
 
 /*----------- Event Listeners ----------*/
 
 bdTile.forEach(key => {
-    key.addEventListener('click', handleClick)
+    key.addEventListener('click', handleClick)   
 })
 
 resetButton.addEventListener('click' , resetBtn)
 timerBtn.addEventListener('click',timer)
 
-shuffleNumbers(tile)
-updateBoard()
-
+init()
