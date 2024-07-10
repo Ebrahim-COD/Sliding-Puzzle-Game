@@ -21,11 +21,8 @@ const timeMessage = document.querySelector("#timeM") // Timer message
 
 function shuffleNumbers(array) {
 
-<<<<<<< HEAD
   array.sort(() => Math.random() - 0.5) // generates a random number between 0 and 1. by subtracting 0.5 we get the before or itself or after the random number.
-=======
   array.sort(() => Math.random() - 0.5) //shuffle the array using sorting 0.
->>>>>>> main
   if(!solvaBle(array)) {       // if its not solvable shuffle the array again
     shuffleNumbers(array)
   }
