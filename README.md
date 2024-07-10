@@ -28,7 +28,7 @@ This is a classic **Sliding Puzzle Game** implemented in JavaScript. The objecti
 
 1. #### JavaScript Functions:
 
-    * **shuffleNumbers:** Randomly shuffles the array of tile numbers while ensuring the puzzle remains solvable based on the concept of inversions count theory.
+    * **shuffleNumbers:** Randomly shuffles the array of tile numbers while ensuring the puzzle remains solvable based on the concept of inversions in permutation theory.
 
     * **moveTiles:** Determines if a tile can be moved into the empty space based on its current position.
 
