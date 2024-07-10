@@ -2,7 +2,7 @@
 ## Date: 11.07.2024
 ### By: Ebrahim Khalil
 
-[GitHub](https://github.com/Ebrahim-COD)
+**[GitHub](https://github.com/Ebrahim-COD)**
 
 ### ***Description:***
 
