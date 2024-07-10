@@ -2,9 +2,13 @@
 ## Date: 11.07.2024
 ### By: Ebrahim Khalil
 
+[GitHub](https://github.com/Ebrahim-COD)
+
 ### ***Description:***
 
 This is a classic **Sliding Puzzle Game** implemented in JavaScript. The objective of the game is to rearrange the tiles in ascending numerical order (from 1 to 8) plus an empty space to win the game.
+
+**Try the Game:** [Sliding Puzzle Game](https://ebrahim-cod.github.io/Sliding-Puzzle-Game/)
 
 ### ***Features:***
 
@@ -24,7 +28,7 @@ This is a classic **Sliding Puzzle Game** implemented in JavaScript. The objecti
 
 1. #### JavaScript Functions:
 
-    * **shuffleNumbers:** Randomly shuffles the array of tile numbers while ensuring the puzzle remains solvable based on the concept of inversions in permutation theory.
+    * **shuffleNumbers:** Randomly shuffles the array of tile numbers while ensuring the puzzle remains solvable based on the concept of inversions count theory.
 
     * **moveTiles:** Determines if a tile can be moved into the empty space based on its current position.
 
